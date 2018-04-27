@@ -2,13 +2,15 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
+
 from Summary.util import *
 from Summary.models import Documents
 
-
-# Create your views here.
+# 从数据库中读取所有数据
 def index(request):
-    return render(request,'index.html')
+    docs = Documents.objects.all()
+    return render(request,'index.html',{'docs':docs})
 
 def upload(request):
     if request.method == 'POST':
@@ -24,5 +26,12 @@ def upload(request):
             return HttpResponse('fail')
     return render(request,'upload.html')
 
+@csrf_exempt
 def delete(request):
-    return HttpResponseRedirect(request,'delete.html')
+    if request.method == "POST":
+        filename = request.POST.get('name')
+        # 删除数据库记录
+        Documents.objects.filter(docname = filename).delete()
+        # 删除文件
+        delete_file(filename)
+    return HttpResponseRedirect('/summary/index')

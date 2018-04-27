@@ -1,3 +1,5 @@
+import os
+
 from django.conf import settings
 
 from Summary.models import Documents
@@ -14,6 +16,9 @@ def handle_uploaded_file(f):
         return True
     except:
         return False
+
+def delete_file(filename):
+    os.remove(getPath(filename))
 
 def getPath(filename):
     return '%s/%s' % (settings.DATA_ROOT,filename)
