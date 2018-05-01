@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    {% load static %}
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="{% static 'bootstrap3/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/generate.css' %}">
+
+    <title>生成文摘</title>
+</head>
+<body>
+    <div class="page-header">
+        <a href="/summary/index" class="btn btn-primary" style="margin-left:2%;margin-top:-2%">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5"><center class="title">原始文本</center></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5"><center class="title">文摘</center></div>
+        </div>
+        <div class="row">
+            <!--原文本-->
+            <div class="col-md-5">
+                <textarea class="content col-md-12">
+                    {{ raw }}
+                </textarea>
+                <a class="btn btn-info" href="" style="margin:3%;width:10%;">打开</a>
+                <a class="btn btn-info" href="" style="margin:3%;width:10%;">保存</a>
+            </div>
+            <div class="col-md-2">
+                <div class="row">
+                    <form>
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">生成文摘句子数量</label>
+                          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="请输入一个大于0的整数">
+                      </div>
+                      <button type="submit" class="btn btn-primary">生成文摘</button>
+                    </form>
+                </div>
+            </div>
+            <!--摘要-->
+            <div class="col-md-5">
+                <textarea class="content col-md-12" style="" disabled="true"
+                          placeholder="这篇文档没有生成文摘">{{ summarization }}
+                </textarea>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="{% static 'bootstrap3/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

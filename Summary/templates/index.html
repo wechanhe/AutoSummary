@@ -16,41 +16,70 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="{% static 'bootstrap3/js/bootstrap.min.js' %}"></script>
 
+    <script src="{% static 'js/index.js' %}"></script>
+
 </head>
 <body>
-    <div class="panel panel-default">
-      <!-- Default panel contents -->
-      <div class="panel-heading">文章列表</div>
-      <div class="panel-body">
-          <!-- Table -->
-        <table class="table">
-        {% for doc in docs %}
-            <tr>
-                <td>{{ doc.docname }}</td>
-                <td>{{ doc.keywords }}</td>
-                <td><a name="{{ doc.docname }}">删除</a></td>
-            </tr>
-        {% endfor %}
-        </table>
-      </div>
-    </div>
+    <div class="container-fluid">
+        <div class="page-header">
+          <center><h1>自动文摘系统</h1></center>
+        </div>
 
-    <!--选择并提交数据-->
-    <script>
-        $(document).ready(function(){
-            $(".table tr td a").click(function(){
-                var name = $(this).attr("name");
-                $.ajax({
-                  type: 'POST',
-                  url: '/summary/delete/',
-                  data: {"name":name},
-                  success:function(){
-                    alert("文件已经删除");
-                    window.location.href="/summary/index";
-                  }
-                });
-            })
-        })
-    </script>
+        <div class="row" style="margin:20px">
+            <div class="col-md-2 col-md-offset-10">
+                <a href="/summary/upload" class="btn btn-default">上传文档</a>
+            </div>
+        </div>
+
+        <div class="panel panel-primary" style="margin-top:2%;margin-left:10%;margin-right:10%">
+          <!-- Default panel contents -->
+          <div class="panel-heading">文章列表</div>
+          <div>
+              <!-- Table -->
+            <table class="table table-striped">
+                <tr>
+                    <td><center>文件名</center></td>
+                    <td><center>关键字</center></td>
+                    <td><center>操作</center></td>
+                </tr>
+                {% for doc in articles %}
+                <tr>
+                    <td><center>{{ doc.docname }}</center></td>
+                    <td><center>{{ doc.keywords }}</center></td>
+                    <td>
+                        <center>
+                            <a name="{{ doc.docname }}" class="btn btn-danger">删除</a>
+                            <a name="delete" href="{% url 'generate' doc.docname  %}" class="btn btn-primary">生成文摘</a>
+                        </center>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+          </div>
+        </div>
+
+        <nav aria-label="Page navigation" style="margin-left:45%;">
+            <ul class="pagination">
+                {% if cus_list.has_previous %}
+                    <li>
+                        <a href="?page={{ cus_list.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                {% endif %}
+                {% for pg in cus_list.paginator.page_range %}
+                    {% if cus_list.number == pg %}
+                        <li class="active"><a href="?page={{ pg }}">{{ pg }}</a></li>
+                    {% else %}
+                        <li><a href="?page={{ pg }}">{{ pg }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if cus_list.has_next %}
+                    <li>
+                        <a href="?page={{ cus_list.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span></a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
 </body>
 </html>

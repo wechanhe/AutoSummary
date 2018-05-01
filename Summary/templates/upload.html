@@ -2,13 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>上传</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    {% load static %}
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="{% static 'bootstrap3/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/generate.css' %}">
+<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="{% static 'bootstrap3/js/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'js/upload.js' %}"></script>
+
+    <title>文件上传</title>
 </head>
 <body>
-    <form action="/summary/upload/" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="file">
-        <input type="submit" value="上传">
-    </form>
+    <div class="page-header">
+        <a href="/summary/index" class="btn btn-primary" style="margin-left:2%;margin-top:-2%">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <form>
+                  <div class="form-group">
+                    <label for="uploadUuser">上传者</label>
+                    <input type="text" class="form-control" id="uploadUuser" placeholder="输入你的名字" name="upload_user">
+                  </div>
+                  <div class="form-group">
+                    <label for="keywords">关键词</label>
+                    <input type="text" class="form-control" id="keywords" placeholder="暂无关键词" disabled="true" name="keywords">
+                  </div>
+                  <div class="form-group">
+                    <label for="keywords">文章类别</label>
+                    <div class="dropdown">
+                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span id="category" name="type">请选择文章类别</span>
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">篮球</a></li>
+                        <li><a href="#">体育</a></li>
+                        <li><a href="#">旅游</a></li>
+                        <li><a href="#">计算机</a></li>
+                        <li><a href="#">生物</a></li>
+                        <li><a href="#">深度学习</a></li>
+                        <li><a href="#">支付宝</a></li>
+                        <li><a href="#">腾讯</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">文件上传</label>
+                    <input type="file" id="exampleInputFile" name="file">
+                    <p class="help-block">目前只支持txt格式的文本文件</p>
+                  </div>
+                  <button type="submit" class="btn btn-info" style="width:20%" id="FileUpload">提交</button>
+                </form>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
 </body>
 </html>
