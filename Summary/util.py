@@ -79,11 +79,9 @@ def TimeStampToTime(timestamp):
     timeStruct = time.localtime(timestamp)
     return time.strftime('%Y-%m-%d %H:%M:%S', timeStruct)
 
-#获取文件的大小,结果保留两位小数，单位为MB
-def get_FileSize(filePath):
-    # filePath = unicode(filePath, 'utf8')
-    fsize = os.path.getsize(filePath)
-    fsize = fsize / float(1024 * 1024)
+#获取文件的大小,结果保留两位小数，单位为KB
+def get_FileSize(fsize):
+    fsize = fsize / float(1024)
     return round(fsize, 2)
 
 #获取文件的访问时间

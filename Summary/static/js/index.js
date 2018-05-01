@@ -13,7 +13,7 @@
                     });
                 }
                 <!--删除文件-->
-                else{
+                else if(option === "删除"){
                     $.ajax({
                       type: 'POST',
                       url: '/summary/delete/',
@@ -21,6 +21,22 @@
                       success:function(result){
                         if(result == "success"){
                             alert("文件已经删除");
+                            window.location.href="/summary/index";
+                        }else if(result == "fail"){
+                            alert("内部错误")
+                        }
+                      }
+                    });
+                }
+
+                else if(option === "下载"){
+                    $.ajax({
+                      type: 'POST',
+                      url: '/summary/download/',
+                      data: {"name":name},
+                      success:function(result){
+                        if(result == "success"){
+                            alert("文件下载成功");
                             window.location.href="/summary/index";
                         }else if(result == "fail"){
                             alert("内部错误")

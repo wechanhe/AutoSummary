@@ -18,6 +18,8 @@
 
     <script src="{% static 'js/index.js' %}"></script>
 
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
 </head>
 <body>
     <div class="container-fluid">
@@ -38,16 +40,29 @@
               <!-- Table -->
             <table class="table table-striped">
                 <tr>
-                    <td><center>文件名</center></td>
-                    <td><center>关键字</center></td>
-                    <td><center>操作</center></td>
+                    <td><center><strong>文件名</strong></center></td>
+                    <td><center><strong>文件大小</strong></center></td>
+                    <td><center><strong>文件上传时间</strong></center></td>
+                    <td><center><strong>文件最后修改时间</strong></center></td>
+                    <td><center><strong>上传者</strong></center></td>
+                    <td><center><strong>文件类型</strong></center></td>
+                    <td><center><strong>关键字</strong></center></td>
+                    <td><center><strong>下载次数</strong></center></td>
+                    <td><center><strong>操作</strong></center></td>
                 </tr>
                 {% for doc in articles %}
                 <tr>
                     <td><center>{{ doc.docname }}</center></td>
+                    <td><center>{{ doc.size }}MB</center></td>
+                    <td><center>{{ doc.create_time }}</center></td>
+                    <td><center>{{ doc.update_time }}</center></td>
+                    <td><center>{{ doc.upload_user }}</center></td>
+                    <td><center>{{ doc.type }}</center></td>
                     <td><center>{{ doc.keywords }}</center></td>
+                    <!--<td><center>{{ doc.downloads }}</center></td>-->
                     <td>
                         <center>
+                            <!--<a name="{{ doc.docname }}" class="btn btn-info">下载</a>-->
                             <a name="{{ doc.docname }}" class="btn btn-danger">删除</a>
                             <a name="delete" href="{% url 'generate' doc.docname  %}" class="btn btn-primary">生成文摘</a>
                         </center>

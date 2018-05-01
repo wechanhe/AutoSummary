@@ -1,5 +1,4 @@
 #-*- encoding:utf-8 -*-
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
@@ -31,17 +30,42 @@ def upload(request):
         keywords = ""  # 关键词
         type = request.POST.get("category")  # 类别
         f = request.FILES.get('file')  # 文件
+        size = int(request.POST.get("size")) #文件大小，单位为字节
         docname = f.name  # 文件名
         if len(Documents.objects.filter(docname = docname))>=1:
             return HttpResponse("fileExist")
         else:
             try:
-                doc = Documents(docname=docname, keywords=keywords, type=type, upload_user=upload_user, file=f)
+                # doc = Documents(docname = docname,file=f)
+                # doc.save()
+                # doc = Documents.objects.get(docname = docname)
+                # handle_uploaded_file(f)
+                doc = Documents(docname=docname,type=type, size = get_FileSize(size),upload_user =upload_user, file=f)
                 doc.save()
                 return HttpResponse("uploadsuccess")
             except:
                 return HttpResponse("fail")
     return render(request,'upload.html')
+
+@csrf_exempt
+def download(request):
+    if request.method == "POST":
+        try:
+            filename = request.POST.get('name')
+            # 获取文件路径
+            source = getPath(filename)
+            import tkinter as tk
+            from tkinter import filedialog
+
+            root = tk.Tk()
+            root.withdraw()
+
+            target = filedialog.askopenfilename()
+
+            return HttpResponse("success")
+        except:
+            return HttpResponse("fail")
+    return HttpResponseRedirect("/summary/index")
 
 @csrf_exempt
 def delete(request):

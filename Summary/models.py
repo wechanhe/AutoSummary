@@ -22,11 +22,11 @@ class Documents(models.Model):
     id = models.AutoField(primary_key=True,editable=False)
     docname = models.CharField(max_length=50)  #文件名
     keywords = models.TextField(max_length=100,default='')  #关键字
-    downloads = models.IntegerField(default=0)  #下载次数
+    downloads = models.IntegerField(default=0)  #size
     size = models.FloatField(default=0.0)  #文件大小
     create_time = models.DateTimeField(default=datetime.now)  # 文件上传时间
     update_time = models.DateTimeField(default=datetime.now)  # 文件最后修改时间
-    type = models.CharField(max_length=20,default='未知')
+    type = models.CharField(max_length=20,default='未知') #文件类型
     upload_user = models.CharField(max_length=20,default='未知')  # 上传者
     file = models.FileField(upload_to='./Summary/data/')
 
