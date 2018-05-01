@@ -36,11 +36,13 @@ def upload(request):
             return HttpResponse("fileExist")
         else:
             try:
-                # doc = Documents(docname = docname,file=f)
-                # doc.save()
-                # doc = Documents.objects.get(docname = docname)
-                # handle_uploaded_file(f)
-                doc = Documents(docname=docname,type=type, size = get_FileSize(size),upload_user =upload_user, file=f)
+                doc = Documents(docname=docname, keywords=keywords, type=type, size=get_FileSize(size),\
+                                upload_user = upload_user, file = f)
+                doc.save()
+                doc = Documents.objects.get(docname = docname)
+                for kw in getKeywords(getPath(docname)):
+                    keywords += str(kw)
+                doc.keywords = keywords
                 doc.save()
                 return HttpResponse("uploadsuccess")
             except:
@@ -83,18 +85,25 @@ def delete(request):
 
 @csrf_exempt
 def generate(request,docname):
-    path = getPath(docname)
-    raw = ''
-    summarization = ''
-    idx = 1 # 句子编号
-    num = 3 # 生成文摘句子数量
-    with open(path, 'r',encoding='utf-8') as file:
-        for line in file:
-            raw += line
-    for item in getSummarization(path,num):
-        summarization += str('第'+str(idx)+'句：'+item['sentence']+'\n\n')
-        idx += 1
-    return render(request,"generate.html",{'raw':raw,'summarization':summarization})
+    try:
+        path = getPath(docname)
+        raw = ''
+        with open(path, 'r', encoding='utf-8') as file:
+            for line in file:
+                raw += line
+    finally:
+        file.close()
+    return render(request,"generate.html",{'raw':raw,'filename':docname})
 
-def result(request):
-    return render(request,"result.html")
+@csrf_exempt
+def summarize(request):
+    if request.method == "POST":
+        summarization = ''
+        idx = 1 # 句子编号
+        filename = request.POST.get("filename")  # 文件名
+        num = request.POST.get("num") # 生成文摘句子数量
+        text = request.POST.get("text") # 原始文本
+        for item in getSummarization(path=getPath(filename),num=int(num)):
+            summarization += str('第'+str(idx)+'句：'+item['sentence']+'\n\n')
+            idx += 1
+        return HttpResponse(summarization)
