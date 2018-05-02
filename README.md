@@ -4,6 +4,7 @@
 
 * 前端：页面设计使用Bootstrap3，前端用到了Jquery、Ajax等技术
 * 后台：使用基于Python的web开发框架Django，版本是2.0.4，Python的版本是3.6
+* 开发工具：Pycharm-2017
 
 ## 首页
 
@@ -11,7 +12,7 @@
 
 * 列表显示文章
   列表主要是显示了存储文件的数据库表信息。
-  数据库表设计如下：![][avatar]
+  数据库表设计如下：![avatar]
   [avatar]: https://github.com/wechanhe/AutoSummary/tree/master/Summary/static/pictures/数据库表设计.PNG
 
 * 分页
