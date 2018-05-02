@@ -12,8 +12,9 @@
 
 * 列表显示文章
   列表主要是显示了存储文件的数据库表信息。
-  数据库表设计如下：![avatar]
-  [avatar]: https://github.com/wechanhe/AutoSummary/tree/master/Summary/static/pictures/数据库表设计.PNG
+  数据库表设计如下：![][avatar]
+
+  [avatar]:https://raw.githubusercontent.com/wechanhe/AutoSummary/master/Summary/static/pictures/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%E8%AE%BE%E8%AE%A1.PNG
 
 * 分页
   考虑到上传的文件数量可能会有点大，为了更好的在首页显示文章列表，结合使用了Django自带的分页模块**django.core.paginator**和Bootstrap的分页样式
