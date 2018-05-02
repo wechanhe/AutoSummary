@@ -47,7 +47,8 @@
                       <div class="form-group">
                           <label for="num">生成文摘句子数量</label>
                           <input type="text" class="form-control" id="num" name="{{ sentences }}"
-                                 placeholder="这篇文章共有{{ sentences }}句，请输入1-{{ sentences }}的一个整数">
+                                 placeholder="这篇文章共有{{ sentences }}句">
+                          <p class="help-block" style="color:#1d1c1b">请输入1-{{ sentences }}的一个整数</p>
                       </div>
                       <a id="summarize" class="btn btn-primary">生成文摘</a>
                     </form>

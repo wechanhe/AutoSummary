@@ -4,14 +4,15 @@ $(document).ready(function(){
         var text = $("#raw_text").val();
         var filename = $("#raw_text").attr("name");
         var maxlength = parseInt($("#num").attr("name"));
-        if(!isIntNum(num)){
-            alert("请输入数字");
-            return;
-        }
-        else if(num <= 0 || num > maxlength){
+        console.log(num);
+        if(num <= 0 || num > maxlength){
             alert("请输入合理范围内的数");
             return;
         }
+//        else if(isNum(num) == false){
+//            alert("请输入数字");
+//            return;
+//        }
         $.ajax({
             type: 'POST',
             url: '/summary/summarize/',
@@ -37,7 +38,7 @@ $(document).ready(function(){
 function isIntNum(val){
     var regPos = / ^\d+$/; // 非负整数
     var regNeg = /^\-[1-9][0-9]*$/; // 负整数
-    if(regPos.test(val) || regNeg.test(val)){
+    if(regPos.test(parseInt(val)) || regNeg.test(parseInt(val))){
         return true;
     }else{
         return false;
