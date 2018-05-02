@@ -93,7 +93,7 @@ def generate(request,docname):
                 raw += line
     finally:
         file.close()
-    return render(request,"generate.html",{'raw':raw,'filename':docname})
+    return render(request,"generate.html",{'raw': raw,'filename': docname,'sentences': int(getSentenceNum(path))-4})
 
 @csrf_exempt
 def summarize(request):

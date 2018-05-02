@@ -1,15 +1,17 @@
 $(document).ready(function(){
     $("#summarize").click(function(){
-        var num = trim($("#num").val());
+        var num = parseInt($("#num").val());
         var text = $("#raw_text").val();
         var filename = $("#raw_text").attr("name");
-        console.log(isIntNum(num));
-//        if(isIntNum(num) == false){
-//            alert("请输入数字");
-//            return;
-//        }else{
-//            num = paseInt(num);
-//        }
+        var maxlength = parseInt($("#num").attr("name"));
+        if(!isIntNum(num)){
+            alert("请输入数字");
+            return;
+        }
+        else if(num <= 0 || num > maxlength){
+            alert("请输入合理范围内的数");
+            return;
+        }
         $.ajax({
             type: 'POST',
             url: '/summary/summarize/',
@@ -40,8 +42,4 @@ function isIntNum(val){
     }else{
         return false;
     }
-}
-
-function trim(str) {
-    return str.replace(/(^\s+)|(\s+$)/g,"");
 }

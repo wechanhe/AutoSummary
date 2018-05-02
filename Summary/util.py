@@ -24,6 +24,21 @@ def delete_file(filename):
 def getPath(filename):
     return '%s/%s' % (settings.DATA_ROOT,filename)
 
+# 获取文章句子数量
+def getSentenceNum(path):
+    try:
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
+    except:
+        pass
+
+    import codecs
+    from textrank4zh import TextRank4Sentence
+    tr4s = TextRank4Sentence()
+    text = codecs.open(path, 'r', 'utf-8').read()
+    tr4s.analyze(text=text, lower=True, source = 'all_filters')
+    return len(tr4s.sentences)
+
 #获取关键词
 def getKeywords(path):
     try:

@@ -46,7 +46,8 @@
                         {% csrf_token %}
                       <div class="form-group">
                           <label for="num">生成文摘句子数量</label>
-                          <input type="text" class="form-control" id="num" placeholder="请输入一个大于0的整数">
+                          <input type="text" class="form-control" id="num" name="{{ sentences }}"
+                                 placeholder="这篇文章共有{{ sentences }}句，请输入1-{{ sentences }}的一个整数">
                       </div>
                       <a id="summarize" class="btn btn-primary">生成文摘</a>
                     </form>
