@@ -1,8 +1,15 @@
 $(document).ready(function(){
     $("#summarize").click(function(){
-        var num = $("#num").val();
+        var num = trim($("#num").val());
         var text = $("#raw_text").val();
         var filename = $("#raw_text").attr("name");
+        console.log(isIntNum(num));
+//        if(isIntNum(num) == false){
+//            alert("请输入数字");
+//            return;
+//        }else{
+//            num = paseInt(num);
+//        }
         $.ajax({
             type: 'POST',
             url: '/summary/summarize/',
@@ -24,3 +31,17 @@ $(document).ready(function(){
         alert("change");
     };
 });
+
+function isIntNum(val){
+    var regPos = / ^\d+$/; // 非负整数
+    var regNeg = /^\-[1-9][0-9]*$/; // 负整数
+    if(regPos.test(val) || regNeg.test(val)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function trim(str) {
+    return str.replace(/(^\s+)|(\s+$)/g,"");
+}
