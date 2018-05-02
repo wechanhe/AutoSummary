@@ -23,5 +23,6 @@ urlpatterns = [
     path('delete/',views.delete),
     path('generate/(?P<docname>)',views.generate,name='generate'),
     path('summarize/',views.summarize),
-    path('download/',views.download)
+    path('download/',views.download),
+    path('search/',views.download)
 ]

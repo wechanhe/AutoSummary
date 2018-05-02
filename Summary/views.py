@@ -107,3 +107,7 @@ def summarize(request):
             summarization += str('第'+str(idx)+'句：'+item['sentence']+'\n\n')
             idx += 1
         return HttpResponse(summarization)
+
+def search(request):
+    if request.method == "POST":
+        return render(request,"search.html")
