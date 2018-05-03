@@ -54,7 +54,8 @@ def getKeywords(path):
 
     tr4w.analyze(text=text, lower=True, window=2)  # py2中text必须是tf8编码的str或者unicode对象，py3中必须是utf8编码的bytes或者str对象
 
-    return tr4w.get_keyphrases(keywords_num=20, min_occur_num= 2)
+    return tr4w.get_keywords(num=6,word_min_len=2)
+    # return tr4w.get_keyphrases(keywords_num=20, min_occur_num= 2)
 
     # print( '关键词：' )
     # for item in tr4w.get_keywords(20, word_min_len=1):

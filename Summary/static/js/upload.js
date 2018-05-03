@@ -18,7 +18,6 @@
                 if(upload_user === "")
                     upload_user = "未知"
                 var filesize = file_info.size;
-                console.log(filesize);
                 form_data.append("file",file_info);
                 form_data.append("size",filesize);
                 form_data.append("upload_user",upload_user);
@@ -34,6 +33,7 @@
                     processData: false,  // tell jquery not to process the data
                     contentType: false, // tell jquery not to set contentType
                     success: function(data) {
+                        alert("success");
                         if(data == "fileExist")
                             alert("文件已存在！");
                         else if(data == "uploadsuccess"){
@@ -41,13 +41,12 @@
                             window.location.href("/summary/index/");
                         }
                         else if(data == "fail"){
-                            alert("内部错误，文件上传失败500");
+                            alert("内部错误，文件上传失败");
                         }
                     },
                     error:function(result){
-                        action();
                         console.log(result);
-                        alert("内部错误，文件上传失败");
+                        alert("内部错误，文件上传失败500");
                     }
                 });
             });

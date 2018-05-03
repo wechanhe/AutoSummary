@@ -40,9 +40,13 @@ def upload(request):
                                 upload_user = upload_user, file = f)
                 doc.save()
                 doc = Documents.objects.get(docname = docname)
+                f_temp = doc.f
                 for kw in getKeywords(getPath(docname)):
-                    keywords += str(kw)
-                doc.keywords = keywords
+                    # keywords += str(kw)
+                    keywords += str(kw.word)+','
+                doc.keywords = "未知"
+                doc.file = f_temp
+                delete_file(docname)
                 doc.save()
                 return HttpResponse("uploadsuccess")
             except:
