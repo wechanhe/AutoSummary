@@ -26,7 +26,7 @@ def index(request):
 @csrf_exempt
 def upload(request):
     if request.method == 'POST':
-        upload_user = request.POST.get("upload_user")  # 上传者
+        upload_user = request.POST.get("upload_user")
         keywords = ""  # 关键词
         type = request.POST.get("category")  # 类别
         f = request.FILES.get('file')  # 文件
